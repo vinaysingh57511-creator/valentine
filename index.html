@@ -1,298 +1,252 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shabina (Shona, Begam, Betuu) ❤️ Vinay</title>
+<title>Shabina ❤️ Vinay</title>
 
 <style>
 body{
 margin:0;
 padding:0;
-overflow:hidden;
-font-family:'Segoe UI',sans-serif;
-text-align:center;
+font-family: 'Segoe UI', sans-serif;
+overflow-x:hidden;
 color:white;
-background:linear-gradient(-45deg,#1e3c72,#ff4e8b,#00c6ff,#ff0080);
+text-align:center;
+background: linear-gradient(-45deg,#2b5cff,#ff4db8,#4facfe,#ff6ec4);
 background-size:400% 400%;
-animation:bg 12s ease infinite;
-}
-@keyframes bg{
-0%{background-position:0% 50%;}
-50%{background-position:100% 50%;}
-100%{background-position:0% 50%;}
+animation:bg 10s ease infinite;
 }
 
-/* Intro Screen */
+@keyframes bg{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
 #intro{
 position:fixed;
 width:100%;
-height:100%;
+height:100vh;
 background:black;
 display:flex;
-align-items:center;
 justify-content:center;
-font-size:24px;
-z-index:100;
+align-items:center;
+font-size:30px;
+z-index:999;
+animation:fadeOut 3s forwards;
+animation-delay:2s;
 }
 
-/* Main */
-#main{display:none;padding:15px;}
+@keyframes fadeOut{
+to{opacity:0;visibility:hidden}
+}
 
-.photo img{
-width:80%;
-max-width:280px;
+#passwordPage{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+}
+
+input{
+padding:12px;
 border-radius:20px;
-box-shadow:0 0 30px #ff69b4;
-animation:glow 2s infinite alternate;
-}
-@keyframes glow{
-from{box-shadow:0 0 20px #ff69b4;}
-to{box-shadow:0 0 50px #00ccff;}
-}
-
-.btn{
-padding:12px 22px;
-font-size:18px;
 border:none;
-border-radius:30px;
-margin:10px;
-cursor:pointer;
-transition:0.3s;
+font-size:16px;
 }
-.yes{background:#00ffcc;color:black;}
-.no{background:#ff1744;color:white;position:relative;}
 
-#letter{margin-top:15px;font-size:16px;min-height:70px;}
-#countdown{margin-top:10px;font-size:14px;}
+button{
+padding:12px 20px;
+border-radius:25px;
+border:none;
+margin:10px;
+font-size:16px;
+cursor:pointer;
+}
 
-/* Roses */
+#main{
+display:none;
+padding:20px;
+padding-bottom:150px;
+}
+
+img{
+width:85%;
+max-width:350px;
+border-radius:25px;
+box-shadow:0 0 40px #ff4db8;
+margin-top:20px;
+}
+
 .rose{
 position:fixed;
-top:-20px;
-font-size:18px;
+top:-10px;
 animation:fall linear infinite;
 }
+
 @keyframes fall{
-to{transform:translateY(100vh);}
+to{transform:translateY(110vh)}
 }
 
-/* Floating Love Text */
-.loveText{
-position:fixed;
-font-size:15px;
-animation:floatUp 6s linear infinite;
-}
-@keyframes floatUp{
-0%{transform:translateY(100vh);}
-100%{transform:translateY(-10vh);}
-}
-
-/* Sparkle */
-.sparkle{
-position:fixed;
-width:8px;
-height:8px;
-background:white;
-border-radius:50%;
-pointer-events:none;
-animation:fade 1s linear forwards;
-}
-@keyframes fade{
-to{opacity:0;transform:scale(2);}
-}
-
-/* Firework */
-.firework{
-position:fixed;
-width:6px;
-height:6px;
-border-radius:50%;
-animation:explode 1s linear forwards;
-}
-@keyframes explode{
-to{transform:scale(8);opacity:0;}
-}
-
-/* Shooting Star */
 .star{
 position:fixed;
-font-size:18px;
-animation:shoot 2s linear forwards;
-}
-@keyframes shoot{
-to{transform:translate(300px,300px);opacity:0;}
+width:2px;
+height:2px;
+background:white;
+animation:twinkle 2s infinite alternate;
 }
 
-/* Ring */
+@keyframes twinkle{
+from{opacity:0.3}
+to{opacity:1}
+}
+
+#yesBtn{background:#00ffcc;color:black}
+#noBtn{background:#ff004c;color:white;position:relative}
+
+#message{display:none;margin-top:20px;font-size:18px}
+
 .ring{
-position:fixed;
-font-size:70px;
-top:40%;
-left:50%;
-transform:translate(-50%,-50%);
+font-size:100px;
 animation:pop 1s ease forwards;
 }
+
 @keyframes pop{
-0%{transform:translate(-50%,-50%) scale(0);}
-100%{transform:translate(-50%,-50%) scale(1);}
+0%{transform:scale(0)}
+100%{transform:scale(1)}
 }
 </style>
 </head>
 
 <body>
 
-<div id="intro">✨ A Special Surprise For My Shona 💕 ✨</div>
+<div id="intro">💖 Our Love Story 💖</div>
+
+<div id="passwordPage">
+<h2>Enter Our Special Date 💞</h2>
+<input type="password" id="passInput" placeholder="DD/MM/YYYY">
+<button onclick="checkPass()">Enter</button>
+</div>
 
 <div id="main">
-<h2>Shabina (Shona, Begam, Betuu) ❤️ Vinay</h2>
+<h1>Shabina (Shona, Begam, Betuu) ❤️ Vinay</h1>
 
-<div class="photo">
 <img src="love.jpg">
+
+<h2>Since 26/11/2017 💕</h2>
+<h3 id="days"></h3>
+
+<p id="letter"></p>
+
+<div>
+<button id="yesBtn" onclick="yesClick()">YES 💍</button>
+<button id="noBtn" onclick="moveNo()">NO 😅</button>
 </div>
 
-<h3>Since 26/11/2017 💞</h3>
-<div id="countdown"></div>
+<div id="message"></div>
 
-<div id="letter"></div>
-
-<button class="btn yes" onclick="yes()">YES ❤️</button>
-<button class="btn no" id="noBtn" onclick="no()">NO 💔</button>
-
-<audio id="music" loop>
-<source src="Music.mp3" type="audio/mpeg">
-</audio>
+<div id="proposalAnim" style="font-size:50px;margin-top:20px;">
+🤵 💍 👰
 </div>
+
+</div>
+
+<audio id="bgMusic" src="Music.mp3" loop></audio>
 
 <script>
 
-/* Intro */
-setTimeout(()=>{
-document.getElementById("intro").style.display="none";
-askPassword();
-},3000);
-
-/* Password */
-function askPassword(){
-let pass=prompt("Enter Our Special Date 💕");
-if(pass==="26/11/2017"){
+function checkPass(){
+if(document.getElementById("passInput").value==="26/11/2017"){
+document.getElementById("passwordPage").style.display="none";
 document.getElementById("main").style.display="block";
-document.getElementById("music").play();
-startEffects();
-}else{
-document.body.innerHTML="<h2 style='margin-top:40%;color:white'>Wrong Password 💔</h2>";
+document.getElementById("bgMusic").play();
+startRoses();
+startStars();
+calculateDays();
+typeLetter();
 }
+else{alert("Wrong Date 😢")}
 }
 
-/* Start Effects */
-function startEffects(){
+function calculateDays(){
+let start=new Date("2017-11-26");
+let today=new Date();
+let diff=Math.floor((today-start)/(1000*60*60*24));
+document.getElementById("days").innerHTML=diff+" Days Together ❤️";
+}
 
-let startDate=new Date("2017-11-26");
-setInterval(()=>{
-let now=new Date();
-let diff=now-startDate;
-let days=Math.floor(diff/(1000*60*60*24));
-document.getElementById("countdown").innerHTML=
-days+" Days Together ❤️";
-},1000);
-
-/* Typing Letter */
-let text="My Shona, Begam, Betuu 💕 You are my forever and always. I love you beyond words. Will you stay with me forever?";
+function typeLetter(){
+let text="My Shona, Begam, Betuu... You are my forever love 💖";
 let i=0;
-function type(){
+let speed=50;
+function typing(){
 if(i<text.length){
 document.getElementById("letter").innerHTML+=text.charAt(i);
 i++;
-setTimeout(type,50);
-}}
-type();
-
-/* Roses */
-for(let i=0;i<40;i++){
-let r=document.createElement("div");
-r.className="rose";
-r.innerHTML="🌹";
-r.style.left=Math.random()*100+"vw";
-r.style.animationDuration=(3+Math.random()*5)+"s";
-document.body.appendChild(r);
+setTimeout(typing,speed);
+}
+}
+typing();
 }
 
-/* Floating Text */
-setInterval(()=>{
-let l=document.createElement("div");
-l.className="loveText";
-l.innerHTML="I Love You ❤️";
-l.style.left=Math.random()*100+"vw";
-document.body.appendChild(l);
-setTimeout(()=>l.remove(),6000);
-},1500);
-
-/* Shooting Stars */
-setInterval(()=>{
-let s=document.createElement("div");
-s.className="star";
-s.innerHTML="⭐";
-s.style.left=Math.random()*60+"vw";
-s.style.top="0px";
-document.body.appendChild(s);
-setTimeout(()=>s.remove(),2000);
-},4000);
+function startRoses(){
+for(let i=0;i<20;i++){
+let rose=document.createElement("div");
+rose.className="rose";
+rose.innerHTML="🌹";
+rose.style.left=Math.random()*100+"vw";
+rose.style.animationDuration=(Math.random()*3+4)+"s";
+document.body.appendChild(rose);
+}
 }
 
-/* Sparkle Trail */
-document.addEventListener("touchmove",function(e){
-let t=e.touches[0];
-let s=document.createElement("div");
-s.className="sparkle";
-s.style.left=t.clientX+"px";
-s.style.top=t.clientY+"px";
-document.body.appendChild(s);
-setTimeout(()=>s.remove(),1000);
-});
-
-/* YES */
-function yes(){
-for(let i=0;i<100;i++){
-let f=document.createElement("div");
-f.className="firework";
-f.style.background="hsl("+Math.random()*360+",100%,50%)";
-f.style.left=Math.random()*100+"vw";
-f.style.top=Math.random()*100+"vh";
-document.body.appendChild(f);
-setTimeout(()=>f.remove(),1000);
+function startStars(){
+for(let i=0;i<50;i++){
+let star=document.createElement("div");
+star.className="star";
+star.style.left=Math.random()*100+"vw";
+star.style.top=Math.random()*100+"vh";
+document.body.appendChild(star);
+}
 }
 
-for(let i=0;i<30;i++){
-let heart=document.createElement("div");
-heart.className="loveText";
-heart.innerHTML="💖";
-heart.style.left=Math.random()*100+"vw";
-document.body.appendChild(heart);
-setTimeout(()=>heart.remove(),3000);
+function yesClick(){
+let msg=document.getElementById("message");
+msg.style.display="block";
+msg.innerHTML="<div class='ring'>💍</div> You made me the happiest man alive 💖 I promise forever love!";
+fireworks();
 }
 
-let ring=document.createElement("div");
-ring.className="ring";
-ring.innerHTML="💍";
-document.body.appendChild(ring);
-setTimeout(()=>ring.remove(),2000);
-
-alert("You made me the happiest man alive 💖 I promise to love you forever Shona!");
-}
-
-/* NO */
-let size=1;
-function no(){
+function moveNo(){
 let btn=document.getElementById("noBtn");
-btn.style.position="fixed";
-btn.style.left=Math.random()*80+"vw";
-btn.style.top=Math.random()*80+"vh";
-size-=0.1;
-if(size<0.3) size=0.3;
-btn.style.transform="scale("+size+")";
+btn.style.transform="translate("+ (Math.random()*200-100)+"px,"+(Math.random()*200-100)+"px)";
+btn.style.fontSize=Math.max(8,parseInt(window.getComputedStyle(btn).fontSize)-1)+"px";
 btn.innerHTML="Please 🥺";
 }
 
+function fireworks(){
+for(let i=0;i<40;i++){
+let spark=document.createElement("div");
+spark.style.position="fixed";
+spark.style.width="6px";
+spark.style.height="6px";
+spark.style.background="yellow";
+spark.style.borderRadius="50%";
+spark.style.left="50%";
+spark.style.top="50%";
+spark.style.transition="all 1s ease-out";
+document.body.appendChild(spark);
+setTimeout(()=>{
+spark.style.left=Math.random()*100+"vw";
+spark.style.top=Math.random()*100+"vh";
+spark.style.opacity=0;
+},10);
+setTimeout(()=>spark.remove(),1000);
+}
+}
+
 </script>
+
 </body>
 </html>
