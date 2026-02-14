@@ -2,118 +2,106 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Shabina (Shona, Begam, Betuu) ❤️ Vinay</title>
+<title>Shabina ❤️ Vinay</title>
 
 <style>
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #ff4da6, #4da6ff);
-    color: white;
-    text-align: center;
-    overflow-x: hidden;
+body{
+margin:0;
+font-family:Segoe UI;
+background:linear-gradient(135deg,#1e3cff,#ff4db8);
+color:white;
+text-align:center;
+overflow-x:hidden;
 }
 
-/* Password Page */
-#passwordPage {
-    position: fixed;
-    width: 100%;
-    height: 100vh;
-    background: linear-gradient(135deg, #4da6ff, #ff4da6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+/* PASSWORD SCREEN */
+#lock{
+position:fixed;
+width:100%;
+height:100%;
+background:linear-gradient(135deg,#1e3cff,#ff4db8);
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:10;
 }
 
-h1, h2, h3 {
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+input{
+padding:10px;
+border-radius:10px;
+border:none;
+font-size:18px;
+text-align:center;
 }
 
-input {
-    padding: 12px;
-    font-size: 18px;
-    border-radius: 25px;
-    border: none;
-    text-align: center;
-    outline: none;
+button{
+padding:10px 20px;
+border:none;
+border-radius:20px;
+background:#ff1493;
+color:white;
+font-size:18px;
+margin-top:10px;
+cursor:pointer;
 }
 
-button {
-    padding: 12px 25px;
-    font-size: 18px;
-    border-radius: 25px;
-    border: none;
-    background: white;
-    color: #ff4da6;
-    cursor: pointer;
-    margin-top: 15px;
-    font-weight: bold;
+/* MAIN CONTENT */
+#main{
+display:none;
+padding:20px;
 }
 
-button:hover {
-    background: #ffe6f2;
+img{
+width:280px;
+border-radius:20px;
+box-shadow:0 0 20px pink;
+margin-top:20px;
 }
 
-.hidden {
-    display: none;
+/* ROSE ANIMATION */
+.rose{
+position:fixed;
+top:-50px;
+font-size:24px;
+animation:fall 6s linear infinite;
 }
 
-/* Main */
-#mainContent {
-    padding: 20px;
+@keyframes fall{
+0%{transform:translateY(-50px);}
+100%{transform:translateY(110vh);}
 }
 
-img {
-    width: 250px;
-    border-radius: 20px;
-    margin-top: 20px;
-    box-shadow: 0 0 25px pink;
+/* YES / NO BUTTONS */
+.proposal button{
+margin:10px;
 }
 
-/* Typing */
-#letter {
-    margin: 20px;
-    font-size: 20px;
-    min-height: 120px;
+.firework{
+position:fixed;
+width:5px;
+height:5px;
+background:white;
+border-radius:50%;
+animation:explode 1s ease-out forwards;
 }
 
-/* Roses */
-.rose {
-    position: fixed;
-    top: -50px;
-    font-size: 24px;
-    animation: fall linear infinite;
-}
-
-@keyframes fall {
-    to {
-        transform: translateY(100vh);
-    }
-}
-
-/* Fireworks */
-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    pointer-events: none;
+@keyframes explode{
+0%{transform:scale(1);}
+100%{transform:scale(20);opacity:0;}
 }
 </style>
 </head>
 
 <body>
 
-<!-- PASSWORD -->
-<div id="passwordPage">
-    <h2>Enter Our Special Date 💙💗</h2>
-    <input type="password" id="passwordInput" placeholder="DD/MM/YYYY">
-    <button onclick="checkPassword()">Unlock ❤️</button>
+<div id="lock">
+<h1>Enter Our Special Date 💖</h1>
+<input type="password" id="pass" placeholder="DD/MM/YYYY">
+<button onclick="unlock()">Unlock</button>
 </div>
 
-<!-- MAIN -->
-<div id="mainContent" class="hidden">
+<div id="main">
 
 <h1>Shabina (Shona, Begam, Betuu) ❤️ Vinay</h1>
 
@@ -121,116 +109,82 @@ canvas {
 
 <h2>Since 26/11/2017 💕</h2>
 
-<h3 id="countdown"></h3>
-
 <div id="letter"></div>
 
-<button onclick="showProposal()">Next 💖</button>
+<h2 id="countdown"></h2>
 
-<div id="proposal" class="hidden">
-    <h2>Will You Marry Me? 💍</h2>
-    <button onclick="yesAnswer()">Yes ❤️</button>
-    <button onclick="noAnswer()">No 🥺</button>
-    <h3 id="response"></h3>
+<div class="proposal">
+<h2>Will You Marry Me? 💍</h2>
+<button onclick="yes()">YES ❤️</button>
+<button onclick="no()">NO 😅</button>
 </div>
 
-</div>
+<audio autoplay loop>
+<source src="Music.mp3" type="audio/mpeg">
+</audio>
 
-<audio id="bgMusic" src="Music.mp3" loop></audio>
-<canvas id="fireworksCanvas"></canvas>
+</div>
 
 <script>
 
 /* PASSWORD */
-function checkPassword() {
-    let pass = document.getElementById("passwordInput").value;
-    if(pass === "26/11/2017") {
-        document.getElementById("passwordPage").classList.add("hidden");
-        document.getElementById("mainContent").classList.remove("hidden");
-        document.getElementById("bgMusic").play();
-        startTyping();
-        startRoses();
-        startCountdown();
-    } else {
-        alert("Wrong Date 😢 Try Again!");
-    }
+function unlock(){
+if(document.getElementById("pass").value==="26/11/2017"){
+document.getElementById("lock").style.display="none";
+document.getElementById("main").style.display="block";
+}
+else{
+alert("Wrong Date 😢");
+}
 }
 
-/* Typing Letter */
-let text = "My Shona, Begam, Betuu ❤️\nYou are my forever and my happiness.\nI promise to love you always 💕";
-let i = 0;
-
-function startTyping() {
-    let letter = document.getElementById("letter");
-    let typing = setInterval(() => {
-        if(i < text.length) {
-            letter.innerHTML += text.charAt(i);
-            i++;
-        } else {
-            clearInterval(typing);
-        }
-    }, 50);
+/* LOVE LETTER TYPING */
+let text="My Shona, Begam, Betuu... You are my forever love. 💖";
+let i=0;
+function type(){
+if(i<text.length){
+document.getElementById("letter").innerHTML+=text.charAt(i);
+i++;
+setTimeout(type,50);
 }
-
-/* Roses */
-function startRoses() {
-    setInterval(() => {
-        let rose = document.createElement("div");
-        rose.classList.add("rose");
-        rose.innerHTML = "🌹";
-        rose.style.left = Math.random() * 100 + "vw";
-        rose.style.animationDuration = (Math.random() * 3 + 3) + "s";
-        document.body.appendChild(rose);
-
-        setTimeout(() => {
-            rose.remove();
-        }, 6000);
-    }, 300);
 }
+type();
 
-/* Countdown */
-function startCountdown() {
-    let startDate = new Date("2017-11-26");
-    setInterval(() => {
-        let now = new Date();
-        let diff = now - startDate;
-        let days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        document.getElementById("countdown").innerHTML =
-            "Together for " + days + " days 💙";
-    }, 1000);
-}
+/* COUNTDOWN */
+let countDate=new Date("Nov 26, 2017 00:00:00").getTime();
+setInterval(function(){
+let now=new Date().getTime();
+let gap=now-countDate;
+let days=Math.floor(gap/(1000*60*60*24));
+document.getElementById("countdown").innerHTML="Together for "+days+" days 💕";
+},1000);
 
-/* Proposal */
-function showProposal() {
-    document.getElementById("proposal").classList.remove("hidden");
-}
+/* ROSES */
+setInterval(function(){
+let rose=document.createElement("div");
+rose.className="rose";
+rose.style.left=Math.random()*100+"vw";
+rose.innerHTML="🌹";
+document.body.appendChild(rose);
+setTimeout(()=>rose.remove(),6000);
+},500);
 
 /* YES */
-function yesAnswer() {
-    document.getElementById("response").innerHTML = "Yayyyy! I Love You Forever ❤️🎆";
-    startFireworks();
+function yes(){
+for(let i=0;i<30;i++){
+let f=document.createElement("div");
+f.className="firework";
+f.style.left=Math.random()*100+"vw";
+f.style.top=Math.random()*100+"vh";
+document.body.appendChild(f);
+setTimeout(()=>f.remove(),1000);
+}
+alert("She Said YES! 💖💖💖");
 }
 
 /* NO */
-function noAnswer() {
-    document.getElementById("response").innerHTML = "Please say yes na Shona 🥺💖";
-}
-
-/* Fireworks */
-function startFireworks() {
-    let canvas = document.getElementById("fireworksCanvas");
-    let ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    for(let i=0;i<100;i++){
-        setTimeout(() => {
-            ctx.fillStyle = "hsl(" + Math.random()*360 + ",100%,50%)";
-            ctx.beginPath();
-            ctx.arc(Math.random()*canvas.width, Math.random()*canvas.height, 5, 0, Math.PI*2);
-            ctx.fill();
-        }, i*20);
-    }
+function no(){
+alert("Please say YES Shona 🥺 I can't live without you 💕");
 }
 
 </script>
