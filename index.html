@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>For Someone Special ❤️</title>
+
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to bottom, #000000, #1a001a);
+  text-align: center;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+  color: white;
+}
+
+h1 {
+  margin-top: 25%;
+  font-size: 45px;
+  color: #ff4d6d;
+  animation: glow 2s infinite alternate;
+}
+
+p {
+  font-size: 22px;
+  color: #ffffff;
+}
+
+button {
+  margin-top: 20px;
+  padding: 12px 25px;
+  font-size: 18px;
+  background: #ff4d6d;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #ff1e4d;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 10px #ff4d6d; }
+  to { text-shadow: 0 0 30px #ff99aa; }
+}
+
+.heart {
+  position: absolute;
+  color: red;
+  font-size: 20px;
+  animation: float 5s linear infinite;
+}
+
+@keyframes float {
+  from { transform: translateY(100vh); }
+  to { transform: translateY(-10vh); }
+}
+</style>
+</head>
+
+<body>
+
+<h1>Happy Valentine's Day ❤️</h1>
+<p>You Are My Forever 💕</p>
+<button onclick="showMessage()">Click Here ❤️</button>
+
+<script>
+function showMessage() {
+  alert("I Love You So Much ❤️ Will You Be Mine Forever?");
+}
+
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤️";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+  document.body.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 5000);
+}
+
+setInterval(createHeart, 300);
+</script>
+
+</body>
+</html>
