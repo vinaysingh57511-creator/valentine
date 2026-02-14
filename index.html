@@ -2,211 +2,226 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Shabina ❤️ Vinay</title>
+<title>Shabina (Shona, Begam, Betuu) ❤️ Vinay</title>
 
 <style>
-body{
-margin:0;
-overflow:hidden;
-font-family:'Segoe UI',sans-serif;
-background:black;
-color:white;
-text-align:center;
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #000000, #3a0000);
+    color: white;
+    text-align: center;
+    overflow-x: hidden;
 }
 
-/* Galaxy Stars */
-.star{
-position:fixed;
-background:white;
-border-radius:50%;
-animation:twinkle 2s infinite alternate;
-}
-@keyframes twinkle{
-from{opacity:0.3;}
-to{opacity:1;}
-}
-
-/* Center Content */
-.center{
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
+/* Password Screen */
+#passwordPage {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
-/* Photo */
-img{
-width:280px;
-border-radius:20px;
-box-shadow:0 0 30px pink;
-margin-top:20px;
-animation:glow 2s infinite alternate;
-}
-@keyframes glow{
-from{box-shadow:0 0 20px pink;}
-to{box-shadow:0 0 40px red;}
+input {
+    padding: 12px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: none;
+    text-align: center;
 }
 
-/* Buttons */
-button{
-padding:12px 25px;
-margin:10px;
-background:#ff4d6d;
-border:none;
-border-radius:25px;
-color:white;
-cursor:pointer;
-font-size:16px;
+button {
+    padding: 12px 20px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: none;
+    background: #ff4d6d;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
 }
 
-button:hover{
-background:#ff1a4d;
+.hidden {
+    display: none;
+}
+
+/* Main Page */
+#mainContent {
+    padding: 20px;
+}
+
+img {
+    width: 250px;
+    border-radius: 20px;
+    margin-top: 20px;
+    box-shadow: 0 0 20px red;
+}
+
+/* Typing Effect */
+#letter {
+    margin: 20px;
+    font-size: 20px;
+    min-height: 100px;
+}
+
+/* Roses */
+.rose {
+    position: fixed;
+    top: -50px;
+    font-size: 24px;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh);
+    }
 }
 
 /* Fireworks */
-canvas{
-position:fixed;
-top:0;
-left:0;
-pointer-events:none;
-z-index:5;
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 </style>
 </head>
 
 <body>
 
-<audio autoplay loop>
-<source src="music.mp3" type="audio/mp3">
-</audio>
-
-<!-- PASSWORD SCREEN -->
-<div class="center" id="lockScreen">
-<h1>Enter Our Special Date 🔐</h1>
-<input type="password" id="pass" placeholder="DD/MM/YYYY">
-<br><br>
-<button onclick="unlock()">Unlock ❤️</button>
+<!-- PASSWORD PAGE -->
+<div id="passwordPage">
+    <h2>Enter Our Special Date ❤️</h2>
+    <input type="password" id="passwordInput" placeholder="DD/MM/YYYY">
+    <button onclick="checkPassword()">Unlock</button>
 </div>
 
-<!-- PROPOSAL SCREEN -->
-<div class="center" id="proposal" style="display:none;">
-<h1>Shabina (Shona, Begam, Betuu) ❤️</h1>
+<!-- MAIN CONTENT -->
+<div id="mainContent" class="hidden">
+
+<h1>Shabina (Shona, Begam, Betuu) ❤️ Vinay</h1>
+
 <img src="love.jpg">
-<h2>Will You Be Mine Forever? 💍</h2>
-<button onclick="sayYes()">YES ❤️</button>
-<button id="noBtn">NO 🥺</button>
+
+<h2>Since 26/11/2017 💕</h2>
+
+<h3 id="countdown"></h3>
+
+<div id="letter"></div>
+
+<button onclick="showProposal()">Next ❤️</button>
+
+<div id="proposal" class="hidden">
+    <h2>Will You Marry Me? 💍</h2>
+    <button onclick="yesAnswer()">Yes ❤️</button>
+    <button onclick="noAnswer()">No 😢</button>
+    <h3 id="response"></h3>
 </div>
 
-<canvas id="fireworks"></canvas>
+</div>
+
+<audio id="bgMusic" src="Music.mp3" loop></audio>
+
+<canvas id="fireworksCanvas"></canvas>
 
 <script>
 
-/* Generate Galaxy Stars */
-for(let i=0;i<120;i++){
-let star=document.createElement("div");
-star.className="star";
-star.style.width=star.style.height=Math.random()*3+"px";
-star.style.left=Math.random()*100+"vw";
-star.style.top=Math.random()*100+"vh";
-document.body.appendChild(star);
+/* PASSWORD */
+function checkPassword() {
+    let pass = document.getElementById("passwordInput").value;
+    if(pass === "26/11/2017") {
+        document.getElementById("passwordPage").classList.add("hidden");
+        document.getElementById("mainContent").classList.remove("hidden");
+        document.getElementById("bgMusic").play();
+        startTyping();
+        startRoses();
+        startCountdown();
+    } else {
+        alert("Wrong Date 😢 Try Again!");
+    }
 }
 
-/* Unlock with NEW PASSWORD */
-function unlock(){
-const password=document.getElementById("pass").value;
-if(password==="26/11/2017"){
-document.getElementById("lockScreen").style.display="none";
-document.getElementById("proposal").style.display="block";
-}else{
-alert("That’s not our special date 🥺 Try again my Shona ❤️");
-}
-}
+/* TYPING LETTER */
+let text = "My Shona, Begam, Betuu ❤️\nYou are my forever, my happiness, my everything.\nI promise to love you till my last breath. 💕";
+let i = 0;
 
-/* NO Button Runs Away */
-const noBtn=document.getElementById("noBtn");
-noBtn.addEventListener("mouseover",()=>{
-noBtn.style.position="absolute";
-noBtn.style.left=Math.random()*80+"%";
-noBtn.style.top=Math.random()*80+"%";
-});
-
-/* YES Click */
-function sayYes(){
-document.getElementById("proposal").innerHTML="<h1>She Said YES! ❤️🎉</h1><h2>Forever Together 💖</h2>";
-startFireworks();
-startLoveText();
+function startTyping() {
+    let letter = document.getElementById("letter");
+    let typing = setInterval(() => {
+        if(i < text.length) {
+            letter.innerHTML += text.charAt(i);
+            i++;
+        } else {
+            clearInterval(typing);
+        }
+    }, 50);
 }
 
-/* Fireworks */
-const canvas=document.getElementById("fireworks");
-const ctx=canvas.getContext("2d");
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-let particles=[];
+/* ROSES */
+function startRoses() {
+    setInterval(() => {
+        let rose = document.createElement("div");
+        rose.classList.add("rose");
+        rose.innerHTML = "🌹";
+        rose.style.left = Math.random() * 100 + "vw";
+        rose.style.animationDuration = (Math.random() * 3 + 3) + "s";
+        document.body.appendChild(rose);
 
-function startFireworks(){
-setInterval(()=>{
-for(let i=0;i<70;i++){
-particles.push({
-x:canvas.width/2,
-y:canvas.height/2,
-angle:Math.random()*2*Math.PI,
-speed:Math.random()*6+2
-});
-}
-},500);
+        setTimeout(() => {
+            rose.remove();
+        }, 6000);
+    }, 300);
 }
 
-function animate(){
-ctx.fillStyle="rgba(0,0,0,0.2)";
-ctx.fillRect(0,0,canvas.width,canvas.height);
-particles.forEach(p=>{
-p.x+=Math.cos(p.angle)*p.speed;
-p.y+=Math.sin(p.angle)*p.speed;
-ctx.fillStyle="hsl("+Math.random()*360+",100%,50%)";
-ctx.beginPath();
-ctx.arc(p.x,p.y,2,0,Math.PI*2);
-ctx.fill();
-});
-requestAnimationFrame(animate);
-}
-animate();
-
-/* Floating Love Text */
-function startLoveText(){
-setInterval(()=>{
-let text=document.createElement("div");
-text.innerHTML="I Love You Shona 💖";
-text.style.position="fixed";
-text.style.left=Math.random()*100+"vw";
-text.style.top="100vh";
-text.style.color="pink";
-text.style.fontSize="20px";
-text.style.animation="rise 4s linear";
-document.body.appendChild(text);
-setTimeout(()=>text.remove(),4000);
-},500);
+/* COUNTDOWN */
+function startCountdown() {
+    let startDate = new Date("2017-11-26");
+    setInterval(() => {
+        let now = new Date();
+        let diff = now - startDate;
+        let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        document.getElementById("countdown").innerHTML =
+            "Together for " + days + " days ❤️";
+    }, 1000);
 }
 
-const style=document.createElement('style');
-style.innerHTML=`
-@keyframes rise{
-from{transform:translateY(0);}
-to{transform:translateY(-120vh);}
-}`;
-document.head.appendChild(style);
+/* PROPOSAL */
+function showProposal() {
+    document.getElementById("proposal").classList.remove("hidden");
+}
 
-/* Sparkle Trail */
-document.addEventListener("mousemove",e=>{
-let sparkle=document.createElement("div");
-sparkle.innerHTML="✨";
-sparkle.style.position="fixed";
-sparkle.style.left=e.clientX+"px";
-sparkle.style.top=e.clientY+"px";
-sparkle.style.fontSize="15px";
-document.body.appendChild(sparkle);
-setTimeout(()=>sparkle.remove(),500);
-});
+/* YES */
+function yesAnswer() {
+    document.getElementById("response").innerHTML = "Yayyyy! I Love You Forever ❤️🎆";
+    startFireworks();
+}
+
+/* NO */
+function noAnswer() {
+    document.getElementById("response").innerHTML = "Please say yes na Shona 🥺❤️";
+}
+
+/* FIREWORKS */
+function startFireworks() {
+    let canvas = document.getElementById("fireworksCanvas");
+    let ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    for(let i=0;i<100;i++){
+        setTimeout(() => {
+            ctx.fillStyle = "hsl(" + Math.random()*360 + ",100%,50%)";
+            ctx.beginPath();
+            ctx.arc(Math.random()*canvas.width, Math.random()*canvas.height, 5, 0, Math.PI*2);
+            ctx.fill();
+        }, i*20);
+    }
+}
 
 </script>
 
