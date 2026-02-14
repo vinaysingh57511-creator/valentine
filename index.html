@@ -2,235 +2,294 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shabina (Shona, Begam, Betuu) ❤️ Vinay</title>
 
 <style>
 body{
 margin:0;
-font-family:Segoe UI;
+padding:0;
 overflow:hidden;
-color:white;
+font-family:'Segoe UI',sans-serif;
 text-align:center;
-background:linear-gradient(-45deg,#1e3cff,#ff4db8,#00c3ff,#ff1493);
+color:white;
+background:linear-gradient(-45deg,#1e3c72,#ff4e8b,#00c6ff,#ff0080);
 background-size:400% 400%;
 animation:bg 12s ease infinite;
 }
-
 @keyframes bg{
 0%{background-position:0% 50%;}
 50%{background-position:100% 50%;}
 100%{background-position:0% 50%;}
 }
 
-/* LOCK */
-#lock{
+/* Intro Screen */
+#intro{
 position:fixed;
 width:100%;
 height:100%;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
 background:black;
-z-index:10;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+z-index:100;
 }
 
-input{
-padding:12px;
+/* Main */
+#main{display:none;padding:15px;}
+
+.photo img{
+width:80%;
+max-width:280px;
 border-radius:20px;
-border:none;
-font-size:18px;
-text-align:center;
+box-shadow:0 0 30px #ff69b4;
+animation:glow 2s infinite alternate;
+}
+@keyframes glow{
+from{box-shadow:0 0 20px #ff69b4;}
+to{box-shadow:0 0 50px #00ccff;}
 }
 
-button{
-padding:10px 20px;
-border:none;
-border-radius:25px;
-background:#ff1493;
-color:white;
+.btn{
+padding:12px 22px;
 font-size:18px;
+border:none;
+border-radius:30px;
 margin:10px;
 cursor:pointer;
 transition:0.3s;
 }
+.yes{background:#00ffcc;color:black;}
+.no{background:#ff1744;color:white;position:relative;}
 
-button:hover{transform:scale(1.1);}
+#letter{margin-top:15px;font-size:16px;min-height:70px;}
+#countdown{margin-top:10px;font-size:14px;}
 
-/* MAIN */
-#main{display:none;padding:20px;}
-
-img{
-width:260px;
-border-radius:20px;
-box-shadow:0 0 40px pink;
-margin-top:20px;
-animation:glow 2s infinite alternate;
-}
-
-@keyframes glow{
-from{box-shadow:0 0 20px pink;}
-to{box-shadow:0 0 50px cyan;}
-}
-
-/* FLOAT HEARTS */
-.heart{
+/* Roses */
+.rose{
 position:fixed;
-bottom:-20px;
-font-size:22px;
-animation:float 7s linear infinite;
+top:-20px;
+font-size:18px;
+animation:fall linear infinite;
+}
+@keyframes fall{
+to{transform:translateY(100vh);}
 }
 
-@keyframes float{
-0%{transform:translateY(0);}
-100%{transform:translateY(-110vh);}
-}
-
-/* SHOOTING STAR */
-.star{
+/* Floating Love Text */
+.loveText{
 position:fixed;
-width:2px;
-height:80px;
+font-size:15px;
+animation:floatUp 6s linear infinite;
+}
+@keyframes floatUp{
+0%{transform:translateY(100vh);}
+100%{transform:translateY(-10vh);}
+}
+
+/* Sparkle */
+.sparkle{
+position:fixed;
+width:8px;
+height:8px;
 background:white;
-opacity:0.7;
-transform:rotate(45deg);
-animation:shoot 1s linear forwards;
+border-radius:50%;
+pointer-events:none;
+animation:fade 1s linear forwards;
+}
+@keyframes fade{
+to{opacity:0;transform:scale(2);}
 }
 
-@keyframes shoot{
-0%{transform:translateX(0) translateY(0) rotate(45deg);}
-100%{transform:translateX(-300px) translateY(300px) rotate(45deg);opacity:0;}
-}
-
-/* FIREWORK */
-.fire{
+/* Firework */
+.firework{
 position:fixed;
 width:6px;
 height:6px;
-background:white;
 border-radius:50%;
-animation:boom 1s ease-out forwards;
+animation:explode 1s linear forwards;
+}
+@keyframes explode{
+to{transform:scale(8);opacity:0;}
 }
 
-@keyframes boom{
-0%{transform:scale(1);}
-100%{transform:scale(25);opacity:0;}
+/* Shooting Star */
+.star{
+position:fixed;
+font-size:18px;
+animation:shoot 2s linear forwards;
+}
+@keyframes shoot{
+to{transform:translate(300px,300px);opacity:0;}
 }
 
-#ring{
-font-size:60px;
-animation:pop 1s ease infinite alternate;
+/* Ring */
+.ring{
+position:fixed;
+font-size:70px;
+top:40%;
+left:50%;
+transform:translate(-50%,-50%);
+animation:pop 1s ease forwards;
 }
-
 @keyframes pop{
-from{transform:scale(1);}
-to{transform:scale(1.2);}
+0%{transform:translate(-50%,-50%) scale(0);}
+100%{transform:translate(-50%,-50%) scale(1);}
 }
 </style>
 </head>
 
 <body>
 
-<div id="lock">
-<h1>Enter Our Special Date 💖</h1>
-<input type="password" id="pass" placeholder="DD/MM/YYYY">
-<button onclick="unlock()">Unlock</button>
-</div>
+<div id="intro">✨ A Special Surprise For My Shona 💕 ✨</div>
 
 <div id="main">
+<h2>Shabina (Shona, Begam, Betuu) ❤️ Vinay</h2>
 
-<h1>Shabina (Shona, Begam, Betuu) ❤️ Vinay</h1>
-
+<div class="photo">
 <img src="love.jpg">
+</div>
 
-<h2 id="typing"></h2>
+<h3>Since 26/11/2017 💞</h3>
+<div id="countdown"></div>
 
-<h3 id="timer"></h3>
+<div id="letter"></div>
 
-<div id="ring">💍</div>
+<button class="btn yes" onclick="yes()">YES ❤️</button>
+<button class="btn no" id="noBtn" onclick="no()">NO 💔</button>
 
-<h2>Will You Marry Me? 💖</h2>
-
-<button id="yesBtn" onclick="yes()">YES ❤️</button>
-<button id="noBtn" onclick="no()">NO 😅</button>
-
-<audio autoplay loop>
+<audio id="music" loop>
 <source src="Music.mp3" type="audio/mpeg">
 </audio>
-
 </div>
 
 <script>
 
-/* PASSWORD */
-function unlock(){
-if(document.getElementById("pass").value==="26/11/2017"){
-document.getElementById("lock").style.display="none";
+/* Intro */
+setTimeout(()=>{
+document.getElementById("intro").style.display="none";
+askPassword();
+},3000);
+
+/* Password */
+function askPassword(){
+let pass=prompt("Enter Our Special Date 💕");
+if(pass==="26/11/2017"){
 document.getElementById("main").style.display="block";
+document.getElementById("music").play();
+startEffects();
+}else{
+document.body.innerHTML="<h2 style='margin-top:40%;color:white'>Wrong Password 💔</h2>";
 }
-else{alert("Wrong Date 😢");}
 }
 
-/* TYPING */
-let text="My Shona, Begam, Betuu... You are my forever, my heartbeat, my everything 💕";
+/* Start Effects */
+function startEffects(){
+
+let startDate=new Date("2017-11-26");
+setInterval(()=>{
+let now=new Date();
+let diff=now-startDate;
+let days=Math.floor(diff/(1000*60*60*24));
+document.getElementById("countdown").innerHTML=
+days+" Days Together ❤️";
+},1000);
+
+/* Typing Letter */
+let text="My Shona, Begam, Betuu 💕 You are my forever and always. I love you beyond words. Will you stay with me forever?";
 let i=0;
 function type(){
 if(i<text.length){
-document.getElementById("typing").innerHTML+=text.charAt(i);
+document.getElementById("letter").innerHTML+=text.charAt(i);
 i++;
-setTimeout(type,40);
+setTimeout(type,50);
 }}
 type();
 
-/* COUNTDOWN FROM 26/11/2017 */
-let start=new Date("Nov 26, 2017 00:00:00").getTime();
-setInterval(function(){
-let now=new Date().getTime();
-let diff=now-start;
-let days=Math.floor(diff/(1000*60*60*24));
-document.getElementById("timer").innerHTML="Together for "+days+" days ❤️";
-},1000);
+/* Roses */
+for(let i=0;i<40;i++){
+let r=document.createElement("div");
+r.className="rose";
+r.innerHTML="🌹";
+r.style.left=Math.random()*100+"vw";
+r.style.animationDuration=(3+Math.random()*5)+"s";
+document.body.appendChild(r);
+}
 
-/* FLOATING HEARTS */
-setInterval(function(){
-let h=document.createElement("div");
-h.className="heart";
-h.style.left=Math.random()*100+"vw";
-h.innerHTML="💖";
-document.body.appendChild(h);
-setTimeout(()=>h.remove(),7000);
-},600);
+/* Floating Text */
+setInterval(()=>{
+let l=document.createElement("div");
+l.className="loveText";
+l.innerHTML="I Love You ❤️";
+l.style.left=Math.random()*100+"vw";
+document.body.appendChild(l);
+setTimeout(()=>l.remove(),6000);
+},1500);
 
-/* SHOOTING STAR */
-setInterval(function(){
+/* Shooting Stars */
+setInterval(()=>{
 let s=document.createElement("div");
 s.className="star";
-s.style.left=Math.random()*100+"vw";
+s.innerHTML="⭐";
+s.style.left=Math.random()*60+"vw";
 s.style.top="0px";
 document.body.appendChild(s);
-setTimeout(()=>s.remove(),1000);
+setTimeout(()=>s.remove(),2000);
 },4000);
+}
+
+/* Sparkle Trail */
+document.addEventListener("touchmove",function(e){
+let t=e.touches[0];
+let s=document.createElement("div");
+s.className="sparkle";
+s.style.left=t.clientX+"px";
+s.style.top=t.clientY+"px";
+document.body.appendChild(s);
+setTimeout(()=>s.remove(),1000);
+});
 
 /* YES */
 function yes(){
-for(let i=0;i<60;i++){
+for(let i=0;i<100;i++){
 let f=document.createElement("div");
-f.className="fire";
+f.className="firework";
+f.style.background="hsl("+Math.random()*360+",100%,50%)";
 f.style.left=Math.random()*100+"vw";
 f.style.top=Math.random()*100+"vh";
 document.body.appendChild(f);
 setTimeout(()=>f.remove(),1000);
 }
-alert("You just made me the happiest man alive 💍❤️ I promise to love you forever, Shona!");
+
+for(let i=0;i<30;i++){
+let heart=document.createElement("div");
+heart.className="loveText";
+heart.innerHTML="💖";
+heart.style.left=Math.random()*100+"vw";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),3000);
+}
+
+let ring=document.createElement("div");
+ring.className="ring";
+ring.innerHTML="💍";
+document.body.appendChild(ring);
+setTimeout(()=>ring.remove(),2000);
+
+alert("You made me the happiest man alive 💖 I promise to love you forever Shona!");
 }
 
 /* NO */
+let size=1;
 function no(){
 let btn=document.getElementById("noBtn");
-btn.style.position="absolute";
+btn.style.position="fixed";
 btn.style.left=Math.random()*80+"vw";
 btn.style.top=Math.random()*80+"vh";
-btn.style.transform="scale(0.7)";
+size-=0.1;
+if(size<0.3) size=0.3;
+btn.style.transform="scale("+size+")";
 btn.innerHTML="Please 🥺";
 }
 
