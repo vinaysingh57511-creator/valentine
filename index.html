@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Shabina (Shona, Begam, Betuu) ❤️ Vinay</title>
+<title>Shabina ❤️ Vinay</title>
 
 <style>
 body{
@@ -63,6 +63,7 @@ button:hover{
 background:#ff1a4d;
 }
 
+/* Fireworks */
 canvas{
 position:fixed;
 top:0;
@@ -89,7 +90,7 @@ z-index:5;
 
 <!-- PROPOSAL SCREEN -->
 <div class="center" id="proposal" style="display:none;">
-<h1>Shabina (Shona, Begam, Betuu) ❤️ Vinay</h1>
+<h1>Shabina (Shona, Begam, Betuu) ❤️</h1>
 <img src="love.jpg">
 <h2>Will You Be Mine Forever? 💍</h2>
 <button onclick="sayYes()">YES ❤️</button>
@@ -110,18 +111,18 @@ star.style.top=Math.random()*100+"vh";
 document.body.appendChild(star);
 }
 
-/* Unlock Password */
+/* Unlock with NEW PASSWORD */
 function unlock(){
 const password=document.getElementById("pass").value;
 if(password==="26/11/2017"){
 document.getElementById("lockScreen").style.display="none";
 document.getElementById("proposal").style.display="block";
 }else{
-alert("That’s not our special date 🥺 Try again Shabina (Shona, Begam, Betuu) ❤️");
+alert("That’s not our special date 🥺 Try again my Shona ❤️");
 }
 }
 
-/* NO Button Runs */
+/* NO Button Runs Away */
 const noBtn=document.getElementById("noBtn");
 noBtn.addEventListener("mouseover",()=>{
 noBtn.style.position="absolute";
@@ -131,8 +132,7 @@ noBtn.style.top=Math.random()*80+"%";
 
 /* YES Click */
 function sayYes(){
-document.getElementById("proposal").innerHTML=
-"<h1>She Said YES! ❤️🎉</h1><h2>Forever Together, Shabina (Shona, Begam, Betuu) ❤️ Vinay 💖</h2>";
+document.getElementById("proposal").innerHTML="<h1>She Said YES! ❤️🎉</h1><h2>Forever Together 💖</h2>";
 startFireworks();
 startLoveText();
 }
@@ -176,12 +176,12 @@ animate();
 function startLoveText(){
 setInterval(()=>{
 let text=document.createElement("div");
-text.innerHTML="I Love You Shabina (Shona, Begam, Betuu) 💖";
+text.innerHTML="I Love You Shona 💖";
 text.style.position="fixed";
 text.style.left=Math.random()*100+"vw";
 text.style.top="100vh";
 text.style.color="pink";
-text.style.fontSize="18px";
+text.style.fontSize="20px";
 text.style.animation="rise 4s linear";
 document.body.appendChild(text);
 setTimeout(()=>text.remove(),4000);
