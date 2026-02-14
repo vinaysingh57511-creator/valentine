@@ -2,144 +2,212 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Shabina ❤️ Vinay</title>
+<title>Shabina (Shona, Begam, Betuu) ❤️ Vinay</title>
 
 <style>
-body {
-  margin: 0;
-  padding: 0;
-  background: radial-gradient(circle, #1a001a, #000000);
-  overflow: hidden;
-  font-family: 'Segoe UI', sans-serif;
-  text-align: center;
-  color: white;
+body{
+margin:0;
+overflow:hidden;
+font-family:'Segoe UI',sans-serif;
+background:black;
+color:white;
+text-align:center;
 }
 
-.intro {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 30px;
-  animation: fadeOut 3s ease-in-out 3s forwards;
+/* Galaxy Stars */
+.star{
+position:fixed;
+background:white;
+border-radius:50%;
+animation:twinkle 2s infinite alternate;
+}
+@keyframes twinkle{
+from{opacity:0.3;}
+to{opacity:1;}
 }
 
-@keyframes fadeOut {
-  to { opacity: 0; visibility: hidden; }
+/* Center Content */
+.center{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
 }
 
-.container {
-  margin-top: 10%;
-  opacity: 0;
-  animation: fadeIn 3s ease-in-out 4s forwards;
+/* Photo */
+img{
+width:280px;
+border-radius:20px;
+box-shadow:0 0 30px pink;
+margin-top:20px;
+animation:glow 2s infinite alternate;
+}
+@keyframes glow{
+from{box-shadow:0 0 20px pink;}
+to{box-shadow:0 0 40px red;}
 }
 
-@keyframes fadeIn {
-  to { opacity: 1; }
+/* Buttons */
+button{
+padding:12px 25px;
+margin:10px;
+background:#ff4d6d;
+border:none;
+border-radius:25px;
+color:white;
+cursor:pointer;
+font-size:16px;
 }
 
-h1 {
-  font-size: 45px;
-  color: #ff4d6d;
-  text-shadow: 0 0 25px #ff4d6d;
+button:hover{
+background:#ff1a4d;
 }
 
-img {
-  margin-top: 20px;
-  width: 260px;
-  border-radius: 20px;
-  box-shadow: 0 0 40px #ff4d6d;
-  animation: glow 2s infinite alternate;
-}
-
-@keyframes glow {
-  from { box-shadow: 0 0 20px #ff4d6d; }
-  to { box-shadow: 0 0 50px #ff1e4d; }
-}
-
-.letter {
-  margin-top: 20px;
-  font-size: 20px;
-  min-height: 60px;
-}
-
-button {
-  margin-top: 20px;
-  padding: 12px 25px;
-  font-size: 18px;
-  background: #ff4d6d;
-  color: white;
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #ff1e4d;
-}
-
-.heart {
-  position: absolute;
-  color: red;
-  font-size: 20px;
-  animation: float 6s linear infinite;
-}
-
-@keyframes float {
-  from { transform: translateY(100vh); }
-  to { transform: translateY(-10vh); }
+canvas{
+position:fixed;
+top:0;
+left:0;
+pointer-events:none;
+z-index:5;
 }
 </style>
 </head>
 
 <body>
 
-<div class="intro">
-  Shabina ❤️ Vinay
-</div>
-
-<div class="container">
-  <h1>Happy Valentine's Day 💖</h1>
-  <img src="love.jpg">
-  <div class="letter" id="letter"></div>
-  <button onclick="proposal()">Click For My Heart 💍</button>
-</div>
-
 <audio autoplay loop>
-  <source src="music.mp3" type="audio/mp3">
+<source src="music.mp3" type="audio/mp3">
 </audio>
 
+<!-- PASSWORD SCREEN -->
+<div class="center" id="lockScreen">
+<h1>Enter Our Special Date 🔐</h1>
+<input type="password" id="pass" placeholder="DD/MM/YYYY">
+<br><br>
+<button onclick="unlock()">Unlock ❤️</button>
+</div>
+
+<!-- PROPOSAL SCREEN -->
+<div class="center" id="proposal" style="display:none;">
+<h1>Shabina (Shona, Begam, Betuu) ❤️ Vinay</h1>
+<img src="love.jpg">
+<h2>Will You Be Mine Forever? 💍</h2>
+<button onclick="sayYes()">YES ❤️</button>
+<button id="noBtn">NO 🥺</button>
+</div>
+
+<canvas id="fireworks"></canvas>
+
 <script>
-const message = "Shabina, you are my today, my tomorrow, and my forever. I love you endlessly. – Vinay ❤️";
-let i = 0;
 
-function typeEffect() {
-  if (i < message.length) {
-    document.getElementById("letter").innerHTML += message.charAt(i);
-    i++;
-    setTimeout(typeEffect, 60);
-  }
-}
-setTimeout(typeEffect, 5000);
-
-function proposal() {
-  alert("Shabina ❤️ Will you be mine forever? 💍");
+/* Generate Galaxy Stars */
+for(let i=0;i<120;i++){
+let star=document.createElement("div");
+star.className="star";
+star.style.width=star.style.height=Math.random()*3+"px";
+star.style.left=Math.random()*100+"vw";
+star.style.top=Math.random()*100+"vh";
+document.body.appendChild(star);
 }
 
-function createHeart() {
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.innerHTML = "❤️";
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
-  document.body.appendChild(heart);
-  setTimeout(() => { heart.remove(); }, 6000);
+/* Unlock Password */
+function unlock(){
+const password=document.getElementById("pass").value;
+if(password==="26/11/2017"){
+document.getElementById("lockScreen").style.display="none";
+document.getElementById("proposal").style.display="block";
+}else{
+alert("That’s not our special date 🥺 Try again Shabina (Shona, Begam, Betuu) ❤️");
+}
 }
 
-setInterval(createHeart, 400);
+/* NO Button Runs */
+const noBtn=document.getElementById("noBtn");
+noBtn.addEventListener("mouseover",()=>{
+noBtn.style.position="absolute";
+noBtn.style.left=Math.random()*80+"%";
+noBtn.style.top=Math.random()*80+"%";
+});
+
+/* YES Click */
+function sayYes(){
+document.getElementById("proposal").innerHTML=
+"<h1>She Said YES! ❤️🎉</h1><h2>Forever Together, Shabina (Shona, Begam, Betuu) ❤️ Vinay 💖</h2>";
+startFireworks();
+startLoveText();
+}
+
+/* Fireworks */
+const canvas=document.getElementById("fireworks");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+let particles=[];
+
+function startFireworks(){
+setInterval(()=>{
+for(let i=0;i<70;i++){
+particles.push({
+x:canvas.width/2,
+y:canvas.height/2,
+angle:Math.random()*2*Math.PI,
+speed:Math.random()*6+2
+});
+}
+},500);
+}
+
+function animate(){
+ctx.fillStyle="rgba(0,0,0,0.2)";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+particles.forEach(p=>{
+p.x+=Math.cos(p.angle)*p.speed;
+p.y+=Math.sin(p.angle)*p.speed;
+ctx.fillStyle="hsl("+Math.random()*360+",100%,50%)";
+ctx.beginPath();
+ctx.arc(p.x,p.y,2,0,Math.PI*2);
+ctx.fill();
+});
+requestAnimationFrame(animate);
+}
+animate();
+
+/* Floating Love Text */
+function startLoveText(){
+setInterval(()=>{
+let text=document.createElement("div");
+text.innerHTML="I Love You Shabina (Shona, Begam, Betuu) 💖";
+text.style.position="fixed";
+text.style.left=Math.random()*100+"vw";
+text.style.top="100vh";
+text.style.color="pink";
+text.style.fontSize="18px";
+text.style.animation="rise 4s linear";
+document.body.appendChild(text);
+setTimeout(()=>text.remove(),4000);
+},500);
+}
+
+const style=document.createElement('style');
+style.innerHTML=`
+@keyframes rise{
+from{transform:translateY(0);}
+to{transform:translateY(-120vh);}
+}`;
+document.head.appendChild(style);
+
+/* Sparkle Trail */
+document.addEventListener("mousemove",e=>{
+let sparkle=document.createElement("div");
+sparkle.innerHTML="✨";
+sparkle.style.position="fixed";
+sparkle.style.left=e.clientX+"px";
+sparkle.style.top=e.clientY+"px";
+sparkle.style.fontSize="15px";
+document.body.appendChild(sparkle);
+setTimeout(()=>sparkle.remove(),500);
+});
+
 </script>
 
 </body>
