@@ -2,34 +2,42 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Shabina ❤️ Vinay</title>
+<title>Shabina (Shona, Begam, Betuu) ❤️ Vinay</title>
 
 <style>
 body{
 margin:0;
 font-family:Segoe UI;
-background:linear-gradient(135deg,#1e3cff,#ff4db8);
+overflow:hidden;
 color:white;
 text-align:center;
-overflow-x:hidden;
+background:linear-gradient(-45deg,#1e3cff,#ff4db8,#00c3ff,#ff1493);
+background-size:400% 400%;
+animation:bg 12s ease infinite;
 }
 
-/* PASSWORD SCREEN */
+@keyframes bg{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+/* LOCK */
 #lock{
 position:fixed;
 width:100%;
 height:100%;
-background:linear-gradient(135deg,#1e3cff,#ff4db8);
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
+background:black;
 z-index:10;
 }
 
 input{
-padding:10px;
-border-radius:10px;
+padding:12px;
+border-radius:20px;
 border:none;
 font-size:18px;
 text-align:center;
@@ -38,57 +46,85 @@ text-align:center;
 button{
 padding:10px 20px;
 border:none;
-border-radius:20px;
+border-radius:25px;
 background:#ff1493;
 color:white;
 font-size:18px;
-margin-top:10px;
+margin:10px;
 cursor:pointer;
+transition:0.3s;
 }
 
-/* MAIN CONTENT */
-#main{
-display:none;
-padding:20px;
-}
+button:hover{transform:scale(1.1);}
+
+/* MAIN */
+#main{display:none;padding:20px;}
 
 img{
-width:280px;
+width:260px;
 border-radius:20px;
-box-shadow:0 0 20px pink;
+box-shadow:0 0 40px pink;
 margin-top:20px;
+animation:glow 2s infinite alternate;
 }
 
-/* ROSE ANIMATION */
-.rose{
+@keyframes glow{
+from{box-shadow:0 0 20px pink;}
+to{box-shadow:0 0 50px cyan;}
+}
+
+/* FLOAT HEARTS */
+.heart{
 position:fixed;
-top:-50px;
-font-size:24px;
-animation:fall 6s linear infinite;
+bottom:-20px;
+font-size:22px;
+animation:float 7s linear infinite;
 }
 
-@keyframes fall{
-0%{transform:translateY(-50px);}
-100%{transform:translateY(110vh);}
+@keyframes float{
+0%{transform:translateY(0);}
+100%{transform:translateY(-110vh);}
 }
 
-/* YES / NO BUTTONS */
-.proposal button{
-margin:10px;
-}
-
-.firework{
+/* SHOOTING STAR */
+.star{
 position:fixed;
-width:5px;
-height:5px;
+width:2px;
+height:80px;
+background:white;
+opacity:0.7;
+transform:rotate(45deg);
+animation:shoot 1s linear forwards;
+}
+
+@keyframes shoot{
+0%{transform:translateX(0) translateY(0) rotate(45deg);}
+100%{transform:translateX(-300px) translateY(300px) rotate(45deg);opacity:0;}
+}
+
+/* FIREWORK */
+.fire{
+position:fixed;
+width:6px;
+height:6px;
 background:white;
 border-radius:50%;
-animation:explode 1s ease-out forwards;
+animation:boom 1s ease-out forwards;
 }
 
-@keyframes explode{
+@keyframes boom{
 0%{transform:scale(1);}
-100%{transform:scale(20);opacity:0;}
+100%{transform:scale(25);opacity:0;}
+}
+
+#ring{
+font-size:60px;
+animation:pop 1s ease infinite alternate;
+}
+
+@keyframes pop{
+from{transform:scale(1);}
+to{transform:scale(1.2);}
 }
 </style>
 </head>
@@ -107,17 +143,16 @@ animation:explode 1s ease-out forwards;
 
 <img src="love.jpg">
 
-<h2>Since 26/11/2017 💕</h2>
+<h2 id="typing"></h2>
 
-<div id="letter"></div>
+<h3 id="timer"></h3>
 
-<h2 id="countdown"></h2>
+<div id="ring">💍</div>
 
-<div class="proposal">
-<h2>Will You Marry Me? 💍</h2>
-<button onclick="yes()">YES ❤️</button>
-<button onclick="no()">NO 😅</button>
-</div>
+<h2>Will You Marry Me? 💖</h2>
+
+<button id="yesBtn" onclick="yes()">YES ❤️</button>
+<button id="noBtn" onclick="no()">NO 😅</button>
 
 <audio autoplay loop>
 <source src="Music.mp3" type="audio/mpeg">
@@ -133,61 +168,72 @@ if(document.getElementById("pass").value==="26/11/2017"){
 document.getElementById("lock").style.display="none";
 document.getElementById("main").style.display="block";
 }
-else{
-alert("Wrong Date 😢");
-}
+else{alert("Wrong Date 😢");}
 }
 
-/* LOVE LETTER TYPING */
-let text="My Shona, Begam, Betuu... You are my forever love. 💖";
+/* TYPING */
+let text="My Shona, Begam, Betuu... You are my forever, my heartbeat, my everything 💕";
 let i=0;
 function type(){
 if(i<text.length){
-document.getElementById("letter").innerHTML+=text.charAt(i);
+document.getElementById("typing").innerHTML+=text.charAt(i);
 i++;
-setTimeout(type,50);
-}
-}
+setTimeout(type,40);
+}}
 type();
 
-/* COUNTDOWN */
-let countDate=new Date("Nov 26, 2017 00:00:00").getTime();
+/* COUNTDOWN FROM 26/11/2017 */
+let start=new Date("Nov 26, 2017 00:00:00").getTime();
 setInterval(function(){
 let now=new Date().getTime();
-let gap=now-countDate;
-let days=Math.floor(gap/(1000*60*60*24));
-document.getElementById("countdown").innerHTML="Together for "+days+" days 💕";
+let diff=now-start;
+let days=Math.floor(diff/(1000*60*60*24));
+document.getElementById("timer").innerHTML="Together for "+days+" days ❤️";
 },1000);
 
-/* ROSES */
+/* FLOATING HEARTS */
 setInterval(function(){
-let rose=document.createElement("div");
-rose.className="rose";
-rose.style.left=Math.random()*100+"vw";
-rose.innerHTML="🌹";
-document.body.appendChild(rose);
-setTimeout(()=>rose.remove(),6000);
-},500);
+let h=document.createElement("div");
+h.className="heart";
+h.style.left=Math.random()*100+"vw";
+h.innerHTML="💖";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),7000);
+},600);
+
+/* SHOOTING STAR */
+setInterval(function(){
+let s=document.createElement("div");
+s.className="star";
+s.style.left=Math.random()*100+"vw";
+s.style.top="0px";
+document.body.appendChild(s);
+setTimeout(()=>s.remove(),1000);
+},4000);
 
 /* YES */
 function yes(){
-for(let i=0;i<30;i++){
+for(let i=0;i<60;i++){
 let f=document.createElement("div");
-f.className="firework";
+f.className="fire";
 f.style.left=Math.random()*100+"vw";
 f.style.top=Math.random()*100+"vh";
 document.body.appendChild(f);
 setTimeout(()=>f.remove(),1000);
 }
-alert("She Said YES! 💖💖💖");
+alert("You just made me the happiest man alive 💍❤️ I promise to love you forever, Shona!");
 }
 
 /* NO */
 function no(){
-alert("Please say YES Shona 🥺 I can't live without you 💕");
+let btn=document.getElementById("noBtn");
+btn.style.position="absolute";
+btn.style.left=Math.random()*80+"vw";
+btn.style.top=Math.random()*80+"vh";
+btn.style.transform="scale(0.7)";
+btn.innerHTML="Please 🥺";
 }
 
 </script>
-
 </body>
 </html>
